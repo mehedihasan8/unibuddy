@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 type MenuItem = {
   title: string;
@@ -42,11 +43,21 @@ const Header = () => {
   };
 
   return (
-    <header className="shadow backdrop-blur-md fixed top-0 left-0 right-0 z-50 bg-white">
+    <header className="shadow backdrop-blur-md fixed top-0 left-0 right-0 z-50 bg-white py-2">
       <nav className="max-w-7xl mx-auto w-full px-4 py-3 flex justify-between items-center">
         {/* Brand Logo */}
-        <Link href="/" className="text-2xl font-bold primary-color">
-          UniBuddy
+        <Link
+          href="/"
+          className="text-2xl font-bold primary-color flex items-center"
+        >
+          <Image
+            src={"/logo.png"}
+            alt="logo"
+            width={40}
+            height={40}
+            className="mr-2"
+          />
+          <span className="text-[#3b82f6]">Uni</span>Buddy
         </Link>
 
         {/* Desktop Navigation */}
@@ -67,10 +78,10 @@ const Header = () => {
 
           {/* Sign In & Sign Up Buttons */}
           <Button variant="outline" className="ml-6">
-            <Link href="/login">Sign In</Link>
+            <Link href="/login">Login</Link>
           </Button>
           <Button>
-            <Link href="/register">Sign Up</Link>
+            <Link href="/register">Register</Link>
           </Button>
         </div>
 
@@ -109,7 +120,7 @@ const Header = () => {
                   <X className="size-7" />
                 </button>
               </div>
-            <div className="h-[1px] bg-gray-600 mb-6 mt-4"></div>
+              <div className="h-[1px] bg-gray-600 mb-6 mt-4"></div>
 
               {/* Mobile Links */}
               <ul className="space-y-4">

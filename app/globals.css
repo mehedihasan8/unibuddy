@@ -120,12 +120,31 @@
   background-color: #3b82f6;
 }
 
-.primary-border {
-  border-color: #3b82f6;
+.dark .primary-bg {
+  background-color: #2a77f3;
 }
 
 .primary-color {
-  color: #334155;
+  color: #221859;
+}
+
+@keyframes colorize {
+  0% {
+    filter: grayscale(100%);
+    transform: scale(1);
+  }
+  50% {
+    filter: grayscale(70%);
+    transform: scale(1.2);
+  }
+  100% {
+    filter: grayscale(100%);
+    transform: scale(1);
+  }
+}
+
+.animation-image {
+  animation: colorize 2s infinite;
 }
 
 @layer base {

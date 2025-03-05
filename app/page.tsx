@@ -1,12 +1,14 @@
 import CountDownSection from "@/components/pages/Home/CountDownSection";
 import HeroSection from "@/components/pages/Home/HeroSection";
+import OurPartners from "@/components/pages/Home/OurPartners";
 
 const HomePage = () => {
   return (
-    <div className="text-3xl font-bold text-center">
+    <>
       <HeroSection />
+      <OurPartners />
       <CountDownSection />
-    </div>
+    </>
   );
 };
 
