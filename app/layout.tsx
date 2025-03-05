@@ -5,6 +5,7 @@ import { Providers } from "@/providers/providers";
 import { ThemeProvider } from "@/providers/theme-provider";
 import Header from "@/components/shared/Header/Header";
 import Footer from "@/components/shared/Footer/Footer";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,12 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Providers>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          suppressHydrationWarning
-          className={`${inter.className} bg-background text-foreground antialiased`}
-        >
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${inter.className} bg-background text-foreground antialiased`}
+      >
+        <Providers>
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
@@ -38,8 +39,13 @@ export default function RootLayout({
             {children}
             <Footer />
           </ThemeProvider>
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+        <ToastContainer
+          theme="colored"
+          autoClose={3000}
+          position="top-center"
+        />
+      </body>
+    </html>
   );
 }
