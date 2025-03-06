@@ -7,8 +7,36 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/firebase/firebaseConfig";
+import { useAppDispatch } from "@/redux/hooks";
+import { setUser } from "@/redux/features/auth/authSlice";
+
+const fetchUserByEmail = async (email: string) => {
+
+  try {
+    const userQuery = query(
+      collection(db, "users"),
+      where("emailAdd", "==", email), // ✅ Search by email field
+    );
+
+    const querySnapshot = await getDocs(userQuery);
+
+    if (!querySnapshot.empty) {
+      const userDoc = querySnapshot.docs[0]; // ✅ Get first matching document
+      return { id: userDoc.id, ...userDoc.data() }; // ✅ Return user data with ID
+    } else {
+      return null; // ❌ No user found
+    }
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return null;
+  }
+};
 const Login = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
   // Form state
   const [formData, setFormData] = useState({
     emailAdd: "",
@@ -63,15 +91,31 @@ const Login = () => {
       setLoading(true);
 
       const { user, error } = await login(formData.emailAdd, formData.pass);
-      console.log("🚀 ~ handleSubmit ~ error:", error);
-      console.log("🚀 ~ handleSubmit ~ user:", user)
+
 
       if (user) {
         toast.success("Login successful!");
 
         setLoading(false);
 
-        // router.push("/");
+        const fetchUser = await fetchUserByEmail(user?.email as string);
+
+        if (!fetchUser) {
+          toast.error("User not found.");
+
+          setLoading(false);
+
+          toast.warning("Please register first.");
+          return;
+        }
+
+        dispatch(
+          setUser({
+            ...fetchUser,
+          }),
+        );
+
+        router.push("/");
 
         // Clear form data
 

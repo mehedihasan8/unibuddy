@@ -67,7 +67,21 @@ const Register = () => {
       });
 
       if (docRef.id) {
-        dispatch(setUser({ id: docRef.id, ...formData }));
+        // ✅ Dispatch the correct user format
+        dispatch(
+          setUser({
+            id: docRef.id,
+            firstName,
+            lastName,
+            department,
+            batch,
+            registrationNo,
+            rollNo,
+            semester,
+            phone,
+            email,
+          }),
+        );
       }
     } catch (error) {
       console.error("Error adding document: ", error);

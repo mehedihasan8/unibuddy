@@ -4,8 +4,18 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { Logout, useSelectCurrentUser } from "@/redux/features/auth/authSlice";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { logout } from "@/firebase/auth";
+import { toast } from "react-toastify";
 
 type MenuItem = {
   title: string;
@@ -23,6 +33,11 @@ const Menus: MenuItem[] = [
 const Header = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  const user = useAppSelector(useSelectCurrentUser);
+  console.log("🚀 ~ Header ~ user:", user);
+  const dispatch = useAppDispatch();
 
   // Close menu on route change
   useEffect(() => {
@@ -40,6 +55,17 @@ const Header = () => {
 
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // ✅ Sign out from Firebase
+      dispatch(Logout()); // ✅ Remove user from Redux store
+      toast.success("Logout successful");
+      router.push("/"); // ✅ Redirect to login page
+    } catch (error) {
+      console.error("Logout Error:", error);
+    }
   };
 
   return (
@@ -62,7 +88,7 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
-          {Menus.map((menu) => (
+          {Menus?.map((menu) => (
             <Link
               key={menu.title}
               href={menu.href}
@@ -76,13 +102,38 @@ const Header = () => {
             </Link>
           ))}
 
-          {/* Sign In & Sign Up Buttons */}
-          <Button variant="outline" className="ml-6">
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button>
-            <Link href="/register">Register</Link>
-          </Button>
+          {user ? (
+            <div className="flex items-center space-x-5">
+              <Button onClick={handleLogout} size={"sm"} variant="outline">
+                Logout
+              </Button>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <div className="border bg-[#334155] text-white cursor-pointer rounded-full size-10 flex items-center justify-center">
+                      <h1>{user?.firstName?.charAt(0)}</h1>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-4">
+              {/* Sign In & Sign Up Buttons */}
+              <Button variant="outline">
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button>
+                <Link href="/register">Register</Link>
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
