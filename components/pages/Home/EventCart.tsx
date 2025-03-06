@@ -103,19 +103,22 @@ const events: Event[] = [
 
 const EventCart = () => {
     return (
-        <div className='mx-auto max-w-7xl mt-16 px-4'>
-            <SectionTitle title="Don’t Miss Out on These Events" description="Get ready for a series of amazing events designed to inspire, engage, and bring people together. Check out what's coming up!" />
+        <div className="bg-[#F9F8FF] py-20 mt-24">
 
-            <div className="grid gap-x-8 gap-y-12 sm:gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-                {events.slice(0, 3).map((adventure, index) => (
-                    <EventCartForHome
-                        key={index}
-                        image={adventure.image}
-                        date={adventure.date}
-                        title={adventure.name}
-                        description={adventure.description}
-                    />
-                ))}
+            <div className='mx-auto max-w-7xl pb-10 px-4'>
+                <SectionTitle title="Don’t Miss Out on These Events" description="Get ready for a series of amazing events designed to inspire, engage, and bring people together. Check out what's coming up!" />
+
+                <div className="grid gap-x-8 gap-y-12 sm:gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+                    {events.slice(0, 3).map((adventure, index) => (
+                        <EventCartForHome
+                            key={index}
+                            image={adventure.image}
+                            date={adventure.date}
+                            title={adventure.name}
+                            description={adventure.description}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     )

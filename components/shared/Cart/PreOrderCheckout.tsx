@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -11,21 +13,27 @@ import { toast } from "react-toastify";
 import { useAppSelector } from "@/redux/hooks";
 import { useSelectCurrentUser } from "@/redux/features/auth/authSlice";
 
-interface PaymentCheckoutProps {
+interface PreOrderCheckoutProps {
     totalAmount: number;
     onClose: () => void;
 }
 
-const PaymentCheckout = ({ totalAmount, onClose }: PaymentCheckoutProps) => {
+const PreOrderCheckout = ({ totalAmount, onClose }: PreOrderCheckoutProps) => {
     const user = useAppSelector(useSelectCurrentUser);
     const dispatch = useDispatch();
     const { items } = useSelector((state: RootState) => state.cart); // Get cart items
     const [paymentMethod, setPaymentMethod] = useState("");
+    const [orderTime, setOrderTime] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handlePayment = async () => {
         if (!paymentMethod) {
             toast.error("Please select a payment method.");
+            return;
+        }
+
+        if (!orderTime) {
+            toast.error("Please select pre order time.");
             return;
         }
 
@@ -46,7 +54,7 @@ const PaymentCheckout = ({ totalAmount, onClose }: PaymentCheckoutProps) => {
                 })),
                 totalAmount,
                 paymentMethod,
-                orderTime: "",
+                orderTime,
                 timestamp: serverTimestamp(), // Store order timestamp
             });
 
@@ -80,6 +88,21 @@ const PaymentCheckout = ({ totalAmount, onClose }: PaymentCheckoutProps) => {
                 </select>
             </div>
 
+            {/* Order time Options */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700">Select Order Time:</label>
+                <select
+                    className="w-full p-2 mt-1 border rounded-md"
+                    value={orderTime}
+                    onChange={(e) => setOrderTime(e.target.value)}
+                >
+                    <option value="">-- Choose a order time --</option>
+                    <option value="35">35 Min After</option>
+                    <option value="45">45 Min After</option>
+                    <option value="55">55 Min After</option>
+                </select>
+            </div>
+
             {/* Card Details (if applicable) */}
             {paymentMethod === "credit-card" && (
                 <div>
@@ -100,4 +123,4 @@ const PaymentCheckout = ({ totalAmount, onClose }: PaymentCheckoutProps) => {
     );
 };
 
-export default PaymentCheckout;
+export default PreOrderCheckout;

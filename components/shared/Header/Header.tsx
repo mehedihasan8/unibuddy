@@ -34,13 +34,13 @@ const Menus: MenuItem[] = [
 ];
 
 const Header = () => {
+
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   const { items } = useSelector((state: RootState) => state.cart);
-  console.log("Items:", items);
-  console.log("Items Length:", items?.length);
+
 
   const user = useAppSelector(useSelectCurrentUser);
 
@@ -74,6 +74,15 @@ const Header = () => {
       console.error("Logout Error:", error);
     }
   };
+
+  const [isOpen, setIsOpen] = useState(items.length > 0); // Initialize based on items
+
+  // ✅ Automatically close dialog when cart is empty
+  useEffect(() => {
+    if (items.length === 0) {
+      setIsOpen(false);
+    }
+  }, [items.length]);
 
   return (
     <header className="shadow backdrop-blur-md fixed top-0 left-0 right-0 z-30 bg-white py-2">
@@ -111,7 +120,7 @@ const Header = () => {
           {user ? (
             <div className="flex items-center space-x-5">
 
-              <Dialog>
+              <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogTrigger>
                   <div className="cursor-pointer rounded-full size-10 flex items-center justify-center">
                     <div className="relative cursor-pointer rounded-full size-10 flex items-center justify-center">
@@ -130,16 +139,16 @@ const Header = () => {
               </Dialog>
 
 
-              <div className="dropdown pb-1">
+              <div className="dropdown pb-1 relative">
                 <div className="border bg-[#334155] text-white cursor-pointer rounded-full size-10 flex items-center justify-center">
                   <h1>{user?.firstName?.charAt(0)}</h1>
                 </div>
-                <div className="dropdown-menu absolute right-4 z-50 hidden shadow-md pt-1 px-6 pb-2 bg-white border w-[170px]">
+                <div className="dropdown-menu absolute right-0 z-50 hidden shadow-md pt-2 px-6 pb-2 bg-white border w-[170px]">
 
                   <Link href={"/order-history"}>
                     <p className="mt-1 cursor-pointer">Order History</p>
                   </Link>
-                  
+
                   <div onClick={handleLogout} className="cursor-pointer pt-2" >
                     Logout
                   </div>

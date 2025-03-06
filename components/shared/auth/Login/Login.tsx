@@ -126,7 +126,8 @@ const Login = () => {
       }
 
       if (error) {
-        alert(error);
+
+        toast.error("Login failed. Please try again.");
         setLoading(false);
       }
     }

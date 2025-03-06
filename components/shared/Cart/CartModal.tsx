@@ -8,11 +8,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import PaymentCheckout from "./PaymentCheckout";
 import { useState } from "react";
+import PreOrderCheckout from "./PreOrderCheckout";
 
 const Cart = () => {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false); // Modal state
+  const [preOrderModalOpen, setPreOrderModalOpen] = useState(false);
 
 
   const { items, totalAmount } = useSelector((state: RootState) => state.cart);
@@ -93,7 +95,7 @@ const Cart = () => {
         <h3 className="text-xl font-bold mt-4">Total: ${totalAmount.toFixed(2)}</h3>
 
         <div className="flex items-center justify-between gap-6">
-        <Dialog open={open} onOpenChange={setOpen}>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className="mt-4 w-[30%]">Order</Button>
             </DialogTrigger>
@@ -104,9 +106,18 @@ const Cart = () => {
               <PaymentCheckout totalAmount={totalAmount} onClose={() => setOpen(false)} />
             </DialogContent>
           </Dialog>
-          <Button className="mt-4 w-[30%]" variant={"outline"} onClick={() => dispatch(clearCart())}>
-            Pre Order
-          </Button>
+          <Dialog open={preOrderModalOpen} onOpenChange={setPreOrderModalOpen}>
+            <DialogTrigger asChild>
+              <Button className="mt-4 w-[30%]" variant={"outline"}> Pre Order</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Pre Order Checkout</DialogTitle>
+              </DialogHeader>
+              <PreOrderCheckout totalAmount={totalAmount} onClose={() => setPreOrderModalOpen(false)} />
+            </DialogContent>
+          </Dialog>
+
           <Button className="mt-4 w-[30%]" variant={"destructive"} onClick={() => dispatch(clearCart())}>
             Clear Cart
           </Button>

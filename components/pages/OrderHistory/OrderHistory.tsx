@@ -13,12 +13,14 @@ interface Order {
     products: { name: string; price: number; quantity: number; totalPrice: number }[];
     totalAmount: number;
     paymentMethod: string;
+    orderTime: string;
     timestamp: any;
 }
 
 const OrderHistory = () => {
-    const  user  = useAppSelector(useSelectCurrentUser);
+    const user = useAppSelector(useSelectCurrentUser);
     const [orders, setOrders] = useState<Order[]>([]);
+    console.log("🚀 ~ OrderHistory ~ orders:", orders)
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -75,9 +77,15 @@ const OrderHistory = () => {
             </Table>
 
             <h2 className="text-xl font-semibold mt-6">Order Details</h2>
-            {orders.map(order => (
+            {orders?.map(order => (
                 <div key={order.id} className="border p-4 rounded-lg mt-4">
-                    <h3 className="text-lg font-semibold">Order ID: {order.id}</h3>
+                    <div className="flex justify-between">  <h3 className="text-lg font-semibold">Order ID: {order.id}</h3>
+                        {
+                            order.orderTime && (
+                                <h3 className="text-lg font-semibold">Order Time : {order?.orderTime} Min After</h3>
+                            )
+                        }
+                    </div>
                     <ul className="mt-2">
                         {order.products.map((product, index) => (
                             <li key={index} className="flex justify-between border-b py-2">
