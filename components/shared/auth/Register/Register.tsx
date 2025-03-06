@@ -6,6 +6,7 @@ import { db } from "@/firebase/firebaseConfig";
 import { setUser } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { addDoc, collection } from "firebase/firestore";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -404,9 +405,22 @@ const Register = () => {
             )}
           </div>
         </div>
+        <div className="flex text-base flex-wrap -mx-4 my-4 items-center justify-between">
+          <div className="w-full lg:w-auto px-4 lg:mb-0">
+            <label className="flex items-center">
+              <input className="accent-[#334155]" type="checkbox" />
+              <span className="ml-1">Remember me</span>
+            </label>
+          </div>
+          <div className="w-full lg:w-auto px-4">
+            <a className="inline-block  hover:underline" href="#">
+              Forgot your password?
+            </a>
+          </div>
+        </div>
 
         {/* Submit Button */}
-        <div className="mt-10">
+        <div className="">
           <Button
             className="w-full rounded-md !py-[21px] text-lg"
             type="submit"
@@ -414,6 +428,17 @@ const Register = () => {
             {loading ? "Loading..." : "Submit →"}
           </Button>
         </div>
+
+        <p className="text-center text-sm text-gray-500 mt-4">
+          Already have an account?
+          <Link
+            href="/login"
+            className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none"
+          >
+            Login!
+          </Link>
+          .
+        </p>
       </form>
     </div>
   );
