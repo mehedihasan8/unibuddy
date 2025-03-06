@@ -24,7 +24,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Cart from "../Cart/CartPage";
+import Cart from "../Cart/CartModal";
 
 type MenuItem = {
   title: string;
@@ -34,9 +34,9 @@ type MenuItem = {
 const Menus: MenuItem[] = [
   { title: "Home", href: "/" },
   { title: "Cafeteria", href: "/menu" },
-  { title: "Services", href: "/service" },
-  { title: "Blog", href: "/blog" },
-  { title: "Contact", href: "/contact" },
+  { title: "Event", href: "/event" },
+  { title: "Class Routine", href: "/class-and-faculty" },
+  { title: "But Schedules", href: "/bus-schedules" },
 ];
 
 const Header = () => {
@@ -105,11 +105,10 @@ const Header = () => {
             <Link
               key={menu.title}
               href={menu.href}
-              className={`${
-                pathname === menu.href
-                  ? "font-bold border-b-2 border-primary"
-                  : ""
-              } primary-color hover:text-gray-700`}
+              className={`${pathname === menu.href
+                ? "font-bold border-b-2 border-primary"
+                : ""
+                } primary-color hover:text-gray-700`}
             >
               {menu.title}
             </Link>
@@ -129,7 +128,7 @@ const Header = () => {
                       </div>
                     </div>
                   </DialogTrigger>
-                  <DialogContent className="!w-[600px] !max-w-[800px] p-8">
+                  <DialogContent className="!w-[600px] !max-w-[800px] py-8">
                     <DialogTitle>Your Added Cafeteria Items!</DialogTitle>
 
                     <Cart />
@@ -226,11 +225,10 @@ const Header = () => {
                   <li key={menu.title}>
                     <Link
                       href={menu.href}
-                      className={`block py-2 px-4 rounded-md primary-color ${
-                        pathname === menu.href
-                          ? "font-bold border-l-4 border-primary"
-                          : ""
-                      }`}
+                      className={`block py-2 px-4 rounded-md primary-color ${pathname === menu.href
+                        ? "font-bold border-l-4 border-primary"
+                        : ""
+                        }`}
                     >
                       {menu.title}
                     </Link>

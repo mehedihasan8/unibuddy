@@ -41,7 +41,6 @@ export default function RootLayout({
           </ThemeProvider>
         </Providers>
         <ToastContainer
-          theme="colored"
           autoClose={3000}
           position="top-center"
         />

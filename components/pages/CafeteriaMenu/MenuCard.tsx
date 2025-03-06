@@ -1,12 +1,12 @@
 // components/ProductCard.js
 "use client";
 import { Button } from "@/components/ui/button";
+import { useSelectCurrentUser } from "@/redux/features/auth/authSlice";
 import { addToCart } from "@/redux/features/cart/cartSlice";
-import { useAppDispatch } from "@/redux/hooks";
-import { RootState } from "@/redux/store";
-// import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface Product {
   id: number;
@@ -19,26 +19,21 @@ interface Product {
 
 const MenuCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const router = useRouter();
+  const user = useAppSelector(useSelectCurrentUser);
 
-  // ✅ Check if the product exists in the cart
-  const cartProduct = cartItems.find((item) => item.id === product.id);
-  const quantity = cartProduct ? cartProduct.quantity : 0;
-  console.log("🚀 ~ MenuCard ~ quantity:", quantity);
-  const userQuantity = cartProduct ? cartProduct.userQuantity : 0;
-  console.log("🚀 ~ MenuCard ~ userQuantity:", userQuantity);
+  const handelAddToCard = () => {
+    if (!user) {
+      toast.warning("Please login first!")
+      router.push("/register")
+      return
+    }
 
-  const { items, totalAmount } = useSelector((state: RootState) => state.cart);
-  console.log("🚀 ~ MenuCard ~ items:", items);
-  console.log("🚀 ~ MenuCard ~ totalAmount:", totalAmount);
-
-  //   if (items.length === 0) {
-  //     return <p className="text-center text-lg">Your cart is empty.</p>;
-  //   }
-
-  //   const handleAddToCart = () => {
-  //     dispatch(addToCart(product));
-  //   };
+    if (user) {
+      toast.success("Add to card success!")
+      dispatch(addToCart({ ...product, userQuantity: 1 }))
+    }
+  }
 
   return (
     <div className="border shadow-md p-4 bg-white w-full">
@@ -60,7 +55,7 @@ const MenuCard = ({ product }: { product: Product }) => {
         </p>
       </div>
       <Button
-        onClick={() => dispatch(addToCart({ ...product, userQuantity: 1 }))}
+        onClick={handelAddToCard}
         className="mt-4 py-5 w-full"
       >
         Add to Cart

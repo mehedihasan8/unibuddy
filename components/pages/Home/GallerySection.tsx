@@ -1,5 +1,5 @@
+import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import Image from "next/image";
-import React from "react";
 
 const images = [
     "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
@@ -14,8 +14,8 @@ const images = [
 
 const Gallery = () => {
     return (
-        <div className="p-4 my-16 max-w-7xl mx-auto">
-            <h2 className="text-2xl font-bold text-center mb-6">Gallery</h2>
+        <div className="p-4 my-16 max-w-7xl mx-auto pb-16">
+            <SectionTitle title="A Peek Into Our World" description="Our gallery brings together the beauty of life’s most cherished moments. Enjoy the visual experience and get inspired!" />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {images.map((src, index) => (
                     <div key={index} className="group cursor-pointer relative">

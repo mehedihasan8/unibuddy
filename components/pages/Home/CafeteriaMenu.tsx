@@ -120,29 +120,32 @@ const CafeteriaMenu = () => {
     },
   ];
   return (
-    <div className="max-w-7xl mx-auto px-4">
-      {/* Section Title */}
-      <SectionTitle title="Menu" description="Explore our delicious cafeteria menu" />
+    <div className="bg-[#F9F8FF] pt-16 pb-20">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Section Title */}
+        <SectionTitle title="Satisfy Your Hunger" description="Taste the best of our daily specials, packed with nutrition and flavor, crafted to fuel you for the day" />
 
-      <div className="relative px-4">
-        {/* Carousel */}
-        <Carousel>
-          {/* Next & Previous Buttons */}
-          <CarouselPrevious className="absolute left-[-15px] md:left-[-20px] top-1/2 transform -translate-y-1/2 z-10" />
-          <CarouselNext className="absolute right-[-15px] md:right-[-20px] top-1/2 transform -translate-y-1/2 z-10" />
+        <div className="relative px-4">
+          {/* Carousel */}
+          <Carousel >
+            {/* Next & Previous Buttons */}
+            <CarouselPrevious className="absolute left-[-15px] md:left-[-20px] top-1/2 transform -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-[-15px] md:right-[-20px] top-1/2 transform -translate-y-1/2 z-10" />
 
-          {/* Carousel Content */}
-          <CarouselContent>
-            {products.map((item) => (
-              <CarouselItem
-                key={item.id}
-                className="sm:basis-full md:basis-1/2 lg:basis-1/3"
-              >
-                <MenuCard product={item} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+            {/* Carousel Content */}
+            <CarouselContent>
+              {products.map((item) => (
+                <CarouselItem
+
+                  key={item.id}
+                  className="sm:basis-full md:basis-1/2 lg:basis-1/3"
+                >
+                  <MenuCard product={item} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
       </div>
     </div>
   );
