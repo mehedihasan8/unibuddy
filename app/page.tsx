@@ -1,4 +1,5 @@
-import CountDownSection from "@/components/pages/Home/CountDownSection";
+import CafeteriaMenu from "@/components/pages/Home/CafeteriaMenu";
+import Gallery from "@/components/pages/Home/GallerySection";
 import HeroSection from "@/components/pages/Home/HeroSection";
 import OurPartners from "@/components/pages/Home/OurPartners";
 
@@ -7,7 +8,8 @@ const HomePage = () => {
     <>
       <HeroSection />
       <OurPartners />
-      <CountDownSection />
+      <CafeteriaMenu />
+      <Gallery />
     </>
   );
 };
