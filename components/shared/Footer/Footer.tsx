@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   return (
@@ -24,17 +25,19 @@ const Footer = () => {
               query?
             </p>
             <Link
-              href="/contact"
-              className="py-2.5 px-5 h-9 block w-fit bg-indigo-600 rounded-full shadow-sm text-xs text-white mx-auto transition-all duration-500 hover:bg-indigo-700 lg:mx-0"
+              href="/"
             >
-              Contact us
+              <Button>
+
+                Contact us
+              </Button>
             </Link>
           </div>
 
           {/* Footer Links */}
           {[
             {
-              title: "Pagedone",
+              title: "Links",
               links: ["Home", "About", "Pricing", "Features", "Pro Version"],
             },
             {

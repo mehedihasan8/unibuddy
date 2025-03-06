@@ -5,9 +5,16 @@ import { RootState } from "@/redux/store";
 import { removeFromCart, updateQuantity, clearCart } from "@/redux/features/cart/cartSlice";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import PaymentCheckout from "./PaymentCheckout";
+import { useState } from "react";
 
 const Cart = () => {
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false); // Modal state
+
+
   const { items, totalAmount } = useSelector((state: RootState) => state.cart);
 
   if (items.length === 0) {
@@ -86,9 +93,17 @@ const Cart = () => {
         <h3 className="text-xl font-bold mt-4">Total: ${totalAmount.toFixed(2)}</h3>
 
         <div className="flex items-center justify-between gap-6">
-          <Button className="mt-4 w-[30%]" onClick={() => dispatch(clearCart())}>
-            Order
-          </Button>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button className="mt-4 w-[30%]">Order</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Checkout</DialogTitle>
+              </DialogHeader>
+              <PaymentCheckout totalAmount={totalAmount} onClose={() => setOpen(false)} />
+            </DialogContent>
+          </Dialog>
           <Button className="mt-4 w-[30%]" variant={"outline"} onClick={() => dispatch(clearCart())}>
             Pre Order
           </Button>

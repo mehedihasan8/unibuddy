@@ -103,7 +103,7 @@ const events: Event[] = [
 
 const EventCart = () => {
     return (
-        <div className='mx-auto max-w-7xl mt-16 px-4 md:px-0'>
+        <div className='mx-auto max-w-7xl mt-16 px-4'>
             <SectionTitle title="Don’t Miss Out on These Events" description="Get ready for a series of amazing events designed to inspire, engage, and bring people together. Check out what's coming up!" />
 
             <div className="grid gap-x-8 gap-y-12 sm:gap-y-16 md:grid-cols-2 lg:grid-cols-3">

@@ -13,6 +13,7 @@ export type TUser = {
   phone: number;
   email: string;
   password: string;
+  id: string;
 };
 
 type TInitialState = {

@@ -8,12 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Logout, useSelectCurrentUser } from "@/redux/features/auth/authSlice";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { logout } from "@/firebase/auth";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -82,7 +76,7 @@ const Header = () => {
   };
 
   return (
-    <header className="shadow backdrop-blur-md fixed top-0 left-0 right-0 z-50 bg-white py-2">
+    <header className="shadow backdrop-blur-md fixed top-0 left-0 right-0 z-30 bg-white py-2">
       <nav className="max-w-7xl mx-auto w-full px-4 py-3 flex justify-between items-center">
         {/* Brand Logo */}
         <Link
@@ -116,58 +110,47 @@ const Header = () => {
 
           {user ? (
             <div className="flex items-center space-x-5">
-              {items.length > 0 && (
-                <Dialog>
-                  <DialogTrigger>
-                    <div className="cursor-pointer rounded-full size-10 flex items-center justify-center">
-                      <div className="relative cursor-pointer rounded-full size-10 flex items-center justify-center">
-                        <ShoppingCart size={28} />
-                        <h1 className="absolute border text-sm font-light bg-[#334155] text-white cursor-pointer rounded-full size-5 flex items-center justify-center -top-1 right-0">
-                          {items.length}
-                        </h1>
-                      </div>
-                    </div>
-                  </DialogTrigger>
-                  <DialogContent className="!w-[600px] !max-w-[800px] py-8">
-                    <DialogTitle>Your Added Cafeteria Items!</DialogTitle>
 
-                    <Cart />
-                  </DialogContent>
-                </Dialog>
-              )}
-              <Button onClick={handleLogout} size={"sm"} variant="outline">
-                Logout
-              </Button>
-              {/* <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <div className="border bg-[#334155] text-white cursor-pointer rounded-full size-10 flex items-center justify-center">
-                    <h1>{user?.firstName?.charAt(0)}</h1>
+              <Dialog>
+                <DialogTrigger>
+                  <div className="cursor-pointer rounded-full size-10 flex items-center justify-center">
+                    <div className="relative cursor-pointer rounded-full size-10 flex items-center justify-center">
+                      <ShoppingCart size={28} />
+                      <h1 className="absolute border text-sm font-light bg-[#334155] text-white cursor-pointer rounded-full size-5 flex items-center justify-center -top-1 right-0">
+                        {items.length}
+                      </h1>
+                    </div>
                   </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="absolute right-0">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                  <DropdownMenuItem>Team</DropdownMenuItem>
-                  <DropdownMenuItem>Subscription</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu> */}
+                </DialogTrigger>
+                <DialogContent className="!w-[600px] !max-w-[800px] py-8">
+                  <DialogTitle>Your Added Cafeteria Items!</DialogTitle>
 
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <div className="border bg-[#334155] text-white cursor-pointer rounded-full size-10 flex items-center justify-center">
-                      <h1>{user?.firstName?.charAt(0)}</h1>
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>
-                      {user?.firstName} {user?.lastName}
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+                  <Cart />
+                </DialogContent>
+              </Dialog>
+
+
+              <div className="dropdown pb-1">
+                <div className="border bg-[#334155] text-white cursor-pointer rounded-full size-10 flex items-center justify-center">
+                  <h1>{user?.firstName?.charAt(0)}</h1>
+                </div>
+                <div className="dropdown-menu absolute right-4 z-50 hidden shadow-md pt-1 px-6 pb-2 bg-white border w-[170px]">
+
+                  <Link href={"/order-history"}>
+                    <p className="mt-1 cursor-pointer">Order History</p>
+                  </Link>
+                  
+                  <div onClick={handleLogout} className="cursor-pointer pt-2" >
+                    Logout
+                  </div>
+
+
+
+                </div>
+
+              </div>
+
+
             </div>
           ) : (
             <div className="flex items-center space-x-4">
