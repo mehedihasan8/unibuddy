@@ -152,14 +152,9 @@ const Header = () => {
                   <div onClick={handleLogout} className="cursor-pointer pt-2" >
                     Logout
                   </div>
-
-
-
                 </div>
 
               </div>
-
-
             </div>
           ) : (
             <div className="flex items-center space-x-4">
@@ -199,15 +194,71 @@ const Header = () => {
             <div className="fixed top-0 left-0 bottom-0 h-screen w-full max-w-[90vw] bg-white shadow-lg p-6 z-50">
               {/* Header */}
               <div className="flex justify-between items-center">
-                <Link href="/" className="text-2xl font-bold primary-color">
-                  UniBuddy
-                </Link>
-                <button
-                  onClick={toggleMobileNav}
-                  className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-400"
+                {/* Brand Logo */}
+                <Link
+                  href="/"
+                  className="text-2xl font-bold primary-color flex items-center"
                 >
-                  <X className="size-7" />
-                </button>
+                  <Image
+                    src={"/logo.png"}
+                    alt="logo"
+                    width={40}
+                    height={40}
+                    className="mr-2"
+                  />
+                  <span className="text-[#3b82f6]">Uni</span>Buddy
+                </Link>
+                <div className="flex items-center space-x-4">
+
+
+                  {
+                    user && <div className="flex items-center space-x-5">
+
+                      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                        <DialogTrigger>
+                          <div className="cursor-pointer rounded-full size-10 flex items-center justify-center">
+                            <div className="relative cursor-pointer rounded-full size-10 flex items-center justify-center">
+                              <ShoppingCart size={28} />
+                              <h1 className="absolute border text-sm font-light bg-[#334155] text-white cursor-pointer rounded-full size-5 flex items-center justify-center -top-1 right-0">
+                                {items.length}
+                              </h1>
+                            </div>
+                          </div>
+                        </DialogTrigger>
+                        <DialogContent className="!w-[600px] !max-w-[800px] py-8">
+                          <DialogTitle>Your Added Cafeteria Items!</DialogTitle>
+
+                          <Cart />
+                        </DialogContent>
+                      </Dialog>
+
+
+                      <div className="dropdown pb-1 relative">
+                        <div className="border bg-[#334155] text-white cursor-pointer rounded-full size-10 flex items-center justify-center">
+                          <h1>{user?.firstName?.charAt(0)}</h1>
+                        </div>
+                        <div className="dropdown-menu absolute right-0 z-50 hidden shadow-md pt-2 px-6 pb-2 bg-white border w-[170px]">
+
+                          <Link href={"/order-history"}>
+                            <p className="mt-1 cursor-pointer">Order History</p>
+                          </Link>
+
+                          <div onClick={handleLogout} className="cursor-pointer pt-2" >
+                            Logout
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  }
+                  <button
+                    onClick={toggleMobileNav}
+                    className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-400"
+                  >
+                    <X className="size-8" />
+                  </button>
+                </div>
+
               </div>
               <div className="h-[1px] bg-gray-600 mb-6 mt-4"></div>
 
@@ -228,15 +279,19 @@ const Header = () => {
                 ))}
               </ul>
 
-              {/* Sign In & Sign Up Buttons */}
-              <div className="flex items-center justify-between gap-4 mt-6 mr-6">
-                <Button variant="outline" className="w-1/2">
-                  <Link href="/login">Sign In</Link>
-                </Button>
-                <Button className="w-1/2">
-                  <Link href="/register">Sign Up</Link>
-                </Button>
-              </div>
+              {
+                !user &&
+                <div className="flex items-center justify-between gap-4 mt-6 mr-6">
+                  <Button variant="outline" className="w-1/2">
+                    <Link href="/login">Sign In</Link>
+                  </Button>
+                  <Button className="w-1/2">
+                    <Link href="/register">Sign Up</Link>
+                  </Button>
+                </div>
+              }
+
+
 
               <p className="mt-6 text-xs text-center text-gray-400">
                 © {new Date().getFullYear()} UniBuddy. All rights reserved.

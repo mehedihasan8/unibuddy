@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight,  MessageCircleMore } from "lucide-react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -31,8 +32,13 @@ const HeroSection = () => {
             education platform pursue a new career. Learn from industry experts
           </p>
           <Button className="primary-bg hover:!bg-[#3b83f6df] cursor-pointer py-6 !px-6 text-base transition-transform transform ">
-            Start your instructor journey <ArrowRight size={25} />
+            Start  <ArrowRight size={25} />
           </Button>
+          <Link href={"/chat"}>
+            <Button className="py-6 !px-6 ml-4">
+              Chat with bot <MessageCircleMore size={25} />
+              
+            </Button></Link>
         </div>
         <div className="lg:w-1/2">
           <Image

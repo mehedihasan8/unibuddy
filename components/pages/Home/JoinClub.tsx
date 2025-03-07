@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState } from "react";
@@ -12,9 +10,15 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useAppSelector } from "@/redux/hooks";
+import { useSelectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 const JoinClub = () => {
     const [open, setOpen] = useState(false);
+    const user = useAppSelector(useSelectCurrentUser);
+
+    const router = useRouter()
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -55,6 +59,7 @@ const JoinClub = () => {
 
     // ✅ Handle Form Submission
     const handleSubmit = async () => {
+
         if (!validateForm()) {
             toast.error("Please fill in all required fields.");
             return;
@@ -94,6 +99,19 @@ const JoinClub = () => {
         }
     };
 
+    const handleJoinClubClick = () => {
+
+
+        if (!user) {
+            setOpen(false);
+            toast.warning("You need to log in to join a club.");
+            router.push("/login"); // Redirect to the login page
+            return;
+        } else {
+            setOpen(true); // Open the dialog if the user exists
+        }
+    };
+
     return (
         <div className="max-w-7xl mx-auto pt-20">
             <SectionTitle title="Be Part of Something Bigger!" description="Clubs are the heart of university life! Whether you love tech, music, debate, or sports, there's a place for you. Join a university club today and take your university experience to the next level" />
@@ -121,7 +139,9 @@ const JoinClub = () => {
                     {/* ✅ Modal Trigger Button */}
                     <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger asChild>
-                            <Button className="mt-4 w-[200px] text-lg py-5">Join Club</Button>
+                            <Button
+                                onClick={handleJoinClubClick} // Add the click event here
+                                className="mt-4 w-[200px] text-lg py-5">Join Club</Button>
                         </DialogTrigger>
 
                         <DialogContent className="!max-w-[700px]">

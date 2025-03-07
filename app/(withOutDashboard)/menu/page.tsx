@@ -28,9 +28,10 @@ const CafeteriaMenuPage = () => {
       <div className="mt-8">
         <SectionTitle
           className="md:text-5xl"
-          title="Cafeteria Menu && Services"
-          description="Our Cafeteria Menu and Services are here for you to choose from."
+          title="Delicious Bites & Quality Service"
+          description="Explore our mouth-watering menu and top-notch services. Satisfaction guaranteed!"
         />
+
       </div>
 
       <CafeteriaMenu />

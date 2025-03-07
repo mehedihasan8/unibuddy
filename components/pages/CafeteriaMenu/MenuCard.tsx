@@ -25,7 +25,7 @@ const MenuCard = ({ product }: { product: Product }) => {
   const handelAddToCard = () => {
     if (!user) {
       toast.warning("Please login first!")
-      router.push("/register")
+      router.push("/login")
       return
     }
 
@@ -46,8 +46,8 @@ const MenuCard = ({ product }: { product: Product }) => {
           className="w-full h-full object-center object-cover hover:scale-110 transition"
         />
       </div>
-      <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
-      <p className="text-gray-500 text-sm">{product.description}</p>
+      <h2 className="text-lg font-semibold mt-2 line-clamp-1">{product.name}</h2>
+      <p className="text-gray-500 text-sm line-clamp-2">{product.description}</p>
       <div className="flex items-center justify-between">
         <p className="text-green-600 font-bold mt-2">${product.price}</p>
         <p className="text-green-600 font-bold mt-2">

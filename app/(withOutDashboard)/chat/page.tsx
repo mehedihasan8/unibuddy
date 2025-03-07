@@ -1,5 +1,4 @@
-import EventManagement from '@/components/pages/EventManagement/EventManagement'
-import SectionTitle from '@/components/shared/SectionTitle/SectionTitle';
+import Chat from '@/components/pages/Chat/Chat'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,7 +7,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-const EventManagementPage = () => {
+const ChatPage = () => {
   return (
     <div className="max-w-7xl mx-auto pt-28 px-4">
       <Breadcrumb>
@@ -24,19 +23,10 @@ const EventManagementPage = () => {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="mt-8">
-        <SectionTitle
-          className="md:text-5xl"
-          title="Discover Amazing Events!"
-          description="Explore, engage, and experience unforgettable moments. Pick your favorite event now!"
-        />
-
-      </div>
-
-      <EventManagement />
+      
+      <Chat />
     </div>
-
   )
 }
 
-export default EventManagementPage
+export default ChatPage

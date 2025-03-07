@@ -18,8 +18,8 @@ const ClassAndFacultyPage = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/event">
-              All Events
+            <BreadcrumbLink href="/class-and-faculty">
+              Class Routing
             </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
@@ -27,9 +27,10 @@ const ClassAndFacultyPage = () => {
       <div className="mt-8">
         <SectionTitle
           className="md:text-5xl"
-          title="Class Schedule"
-          description="All Events are here for you to choose from."
+          title="Stay on Track"
+          description="Never miss a class! Explore upcoming sessions and plan your study time."
         />
+
       </div>
       <ClassAndFaculty />
     </div>
